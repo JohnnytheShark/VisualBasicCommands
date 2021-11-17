@@ -1,25 +1,33 @@
 Public Sub ImportFiles()
     Dim TextFile As Workbook
     Dim OpenFiles() As Variant
-    Dim i as Integer
-
-    OpenFiles = Application.GetOpenFilename(title:="Select File(s) to Import", MultiSelect:=True)
+    Dim i As Integer
+    Dim CurrentBook As Workbook
+    
+    Set CurrentBook = ActiveWorkbook
+    
+    OpenFiles = GetFiles()
     Application.ScreenUpdating = False
 
-    For i = 1 to Application.CountA(OpenFiles)
-        Set Textfile = Workbooks.Open(Openfiles(i))
+    For i = 1 To Application.CountA(OpenFiles)
+        Set TextFile = Workbooks.Open(OpenFiles(i))
 
-        Textfile.Sheets(1).range("A1").currentregion.copy
-        Workbooks(1).Activate
-        Workbooks(1).Worksheets.Add
+        TextFile.Sheets(1).Range("A1").CurrentRegion.Copy
+        CurrentBook.Activate
+        CurrentBook.Worksheets.Add
         ActiveSheet.Paste
-        ActiveSheet.name = Textfile.Name
+        ActiveSheet.Name = TextFile.Sheets(1).Name
 
         Application.CutCopyMode = False
 
-        TextFile.close
-    Next i 
+        TextFile.Close
+    Next i
     Application.ScreenUpdating = True
 
 
 End Sub
+
+Public Function GetFiles() As Variant
+    GetFiles = Application.GetOpenFilename(Title:="Select File(s) to Import", MultiSelect:=True)
+End Function
+
