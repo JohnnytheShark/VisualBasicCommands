@@ -1,6 +1,6 @@
 Attribute VB_Name = "Module5" ' Name of the module when imported into excel. 
 Public Sub Formatting()
-' This macro doesn't do anything. However I just wanted to place in code that was used on previous projects regarding formatting.
+' This macro formats a table and inserts a column right before N column. However I just wanted to place in code that was used on previous projects regarding formatting.
 Cells.Select
 Cells.EntireColumn.AutoFit
     Range("A1").Select
